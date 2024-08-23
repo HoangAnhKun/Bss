@@ -1,12 +1,192 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.7) ~  Much Love, Ferib 
+-- Initialize variables
+local isOn = false
+local cooldownTime = 0
+local countdown = 0
+local guiVisible = false
 
-]]--
+-- Create GUI elements
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local OnOffButton = Instance.new("TextButton")
+local CountdownLabel = Instance.new("TextLabel")
+local FloatingButton = Instance.new("ImageButton")
+local CreditLabel = Instance.new("TextLabel")
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v60,v61) local v62={};for v73=1, #v60 do v6(v62,v0(v4(v1(v2(v60,v73,v73 + 1 )),v1(v2(v61,1 + (v73% #v61) ,1 + (v73% #v61) + 1 )))%256 ));end return v5(v62);end local v8=false;local v9=1850 -(1409 + 441) ;local v10=572 -(426 + 146) ;local v11=false;local v12=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));local v13=Instance.new(v7("\5\223\43\200\249","\156\67\173\74\165"));local v14=Instance.new(v7("\0\178\81\2\158\41\94","\38\84\215\41\118\220\70"));local v15=Instance.new(v7("\100\19\58\6\220\69\2\54\29\240","\158\48\118\66\114"));local v16=Instance.new(v7("\159\33\8\34\95\164\249\174\40","\155\203\68\112\86\19\197"));local v17=Instance.new(v7("\111\208\55\251\69\90\240\236\82\210\56","\152\38\189\86\156\32\24\133"));local v18=Instance.new(v7("\200\82\191\82\208\86\165\67\240","\38\156\55\199"));v12.Parent=game.Players.LocalPlayer:WaitForChild(v7("\152\113\125\49\22\102\221\86\161","\35\200\29\28\72\115\20\154"));v13.Parent=v12;v13.BackgroundColor3=Color3.fromRGB(973 -(15 + 703) ,1711 -(282 + 1174) ,119 + 136 );v13.Position=UDim2.new(0.5 -0 , -(6 + 94),438.5 -(262 + 176) , -(1796 -(345 + 1376)));v13.Size=UDim2.new(688 -(198 + 490) ,1471 -(945 + 326) ,0 -0 ,407 -237 );v13.Visible=v11;v14.Parent=v13;v14.BackgroundColor3=Color3.fromRGB(1461 -(696 + 510) ,534 -279 ,235 + 20 );v14.Position=UDim2.new(1262.1 -(1091 + 171) ,0 + 0 ,0.1 -0 ,0 -0 );v14.Size=UDim2.new(0.8 + 0 ,374 -(123 + 251) ,0.2,0);v14.Text=v7("\60\177\197\218\159\108\32\16\178\212\159\197\63\49\26\176\223\219\158\101","\84\121\223\177\191\237\76");v15.Parent=v13;v15.BackgroundColor3=Color3.fromRGB(0 -0 ,953 -(208 + 490) ,0 + 0 );v15.Position=UDim2.new(0.1 + 0 ,0 + 0 ,0.4,0 + 0 );v15.Size=UDim2.new(0.8,529 -(406 + 123) ,0.2,1769 -(1749 + 20) );v15.Text=v7("\148\80\207","\161\219\54\169\192\90\48\80");v16.Parent=v13;v16.BackgroundColor3=Color3.fromRGB(255,255,61 + 194 );v16.Position=UDim2.new(836.1 -(660 + 176) ,0 + 0 ,202.65 -(14 + 188) ,675 -(534 + 141) );v16.Size=UDim2.new(0.8 -0 ,0 + 0 ,0.2 + 0 ,0 + 0 );v16.Text=v7("\125\75\13\32\9\78\5\35\93\24\64\117\9\81\5\38\70\76\4\54","\69\41\34\96");v18.Parent=v13;v18.BackgroundColor3=Color3.fromRGB(535 -280 ,404 -149 ,715 -460 );v18.Position=UDim2.new(0.1 + 0 ,0 + 0 ,0.9 -0 ,396 -(115 + 281) );v18.Size=UDim2.new(114.8 -(4 + 110) ,0 -0 ,584.1 -(57 + 527) ,1427 -(41 + 1386) );v18.Text=v7("\159\209\210\80\66\35\179\194\217\13\80\32\170\205","\75\220\163\183\106\98");v18.TextColor3=Color3.fromRGB(83 + 17 ,241 -141 ,366 -266 );v18.TextScaled=true;v17.Parent=v12;v17.BackgroundTransparency=1;v17.Position=UDim2.new(868 -(550 + 317) , -50,0,14 -4 );v17.Size=UDim2.new(0 -0 ,30,0 -0 ,86 -56 );v17.Image=v7("\16\184\147\54\202\17\191\159\62\221\88\245\196\102\139\81\238\222\97\142\90","\185\98\218\235\87");local function v52() local v63=166 -(122 + 44) ;local v64;local v65;local v66;while true do if (v63==(288 -(134 + 151))) then game:GetService(v7("\106\91\21\37\46\238\19\76\91\1\26\51\226\0\89\89\0","\114\56\62\101\73\71\141")).Events.ItemPackageEvent:InvokeServer(unpack(v66));break;end if (v63==(1 -0)) then local v82=1665 -(970 + 695) ;while true do if (v82==(0 -0)) then v65=game.Players.LocalPlayer.Character;if (v65 and v65:FindFirstChild(v7("\47\3\180\42\9\25\176\47\53\25\182\63\55\23\171\63","\75\103\118\217"))) then v65.HumanoidRootPart.CFrame=v65.HumanoidRootPart.CFrame + Vector3.new(0 + 0 ,2020 -(582 + 1408) ,0 -0 ) ;end v82=3 -2 ;end if (v82==(1 + 0)) then v63=2;break;end end end if (v63==2) then wait(3 -0 );v66={[3 -2 ]=v7("\226\69\101\29\169","\126\167\52\16\116\217"),[7 -5 ]={[v7("\252\55\48\133","\156\168\78\64\224\212\121")]=v7("\36\225\166\193\9\251\177\142\36\239\171\199\20\250\160\220","\174\103\142\197"),[v7("\117\41\75\61\34\81\234\79","\152\54\72\63\88\69\62")]=v7("\245\199\237\89\199\215\225\78\205","\60\180\164\142")}};v63=1827 -(1195 + 629) ;end if (v63==(0 -0)) then local v83=0;while true do if (v83==(242 -(187 + 54))) then v63=781 -(162 + 618) ;break;end if ((580 -(361 + 219))==v83) then v64={[1 + 0 ]=v7("\238\45\50\239\206","\202\171\92\71\134\190"),[2 + 0 ]={[v7("\29\216\60\141","\232\73\161\76")]=v7("\139\214\87\94\22","\126\219\185\34\61"),[v7("\47\207\74\119\121\120\225\254","\135\108\174\62\18\30\23\147")]=v7("\151\234\41\206\11\189\60\213\175","\167\214\137\74\171\120\206\83")}};game:GetService(v7("\185\245\34\81\241\164\138\228\55\89\203\179\132\226\51\90\253","\199\235\144\82\61\152")).Events.ItemPackageEvent:InvokeServer(unpack(v64));v83=1 -0 ;end end end end end local function v53() v8= not v8;if v8 then local v75=0;while true do if (v75==(321 -(53 + 267))) then v10=v9;v16.Text=v7("\230\239\60\183\230\242\14\212\242\107\242","\107\178\134\81\210\198\158")   .. v10   .. v7("\120\29\135\197\165\54\10\145","\202\88\110\226\166") ;break;end if (v75==(0 -0)) then v15.Text=v7("\151\239\221","\164\216\137\187");v15.BackgroundColor3=Color3.fromRGB(20 + 235 ,1636 -(1373 + 263) ,413 -(15 + 398) );v75=983 -(18 + 964) ;end end else local v76=1000 -(451 + 549) ;while true do if (v76==(0 + 0)) then v15.Text=v7("\236\1","\170\163\111\226\151");v15.BackgroundColor3=Color3.fromRGB(0 -0 ,428 -173 ,850 -(20 + 830) );break;end end end end local function v54() while true do local v74=0;while true do if ((1384 -(746 + 638))==v74) then wait(1 + 0 );if (v8 and (v10>(0 + 0))) then v10=v10-(739 -(542 + 196)) ;v16.Text=v7("\37\57\191\61\14\59\44\23\36\232\120","\73\113\80\210\88\46\87")   .. v10   .. v7("\193\63\200\17\232\143\40\222","\135\225\76\173\114") ;if (v10==(0 -0)) then v52();v10=v9;end end break;end end end end local function v55() local v67=341 -(218 + 123) ;local v68;while true do if (v67==(1581 -(1535 + 46))) then v68=0 + 0 ;while true do if ((0 + 0)==v68) then v11= not v11;v13.Visible=v11;break;end end break;end end end v15.MouseButton1Click:Connect(function() v53();end);v14.FocusLost:Connect(function(v69) if v69 then local v77=0;local v78;while true do if (v77==(0 -0)) then v78=tonumber(v14.Text);if v78 then local v95=560 -(306 + 254) ;local v96;while true do if ((0 + 0)==v95) then v96=0 -0 ;while true do if (v96==(0 -0)) then v9=v78;if v8 then v10=v9;end break;end end break;end end else v14.Text=v7("\63\227\172\181\190\253\166\90\251\185\188\165\185\231\14\228\181\181\237","\199\122\141\216\208\204\221");end break;end end end end);v17.MouseButton1Click:Connect(function() v55();end);local v56=false;local v57,v58,v59;v17.InputBegan:Connect(function(v70) if (v70.UserInputType==Enum.UserInputType.MouseButton1) then local v79=1467 -(899 + 568) ;while true do if (v79==(0 + 0)) then v56=true;v58=v70.Position;v79=378 -(142 + 235) ;end if ((2 -1)==v79) then v59=v17.Position;v70.Changed:Connect(function() if (v70.UserInputState==Enum.UserInputState.End) then v56=false;end end);break;end end end end);v17.InputChanged:Connect(function(v71) if (v71.UserInputType==Enum.UserInputType.MouseMovement) then v57=v71;end end);game:GetService(v7("\152\206\21\226\81\248\189\200\4\195\125\228\187\212\19\245","\150\205\189\112\144\24")).InputChanged:Connect(function(v72) if (v56 and (v72==v57)) then local v80=603 -(268 + 335) ;local v81;while true do if (v80==(0 + 0)) then v81=v72.Position-v58 ;v17.Position=UDim2.new(v59.X.Scale,v59.X.Offset + v81.X ,v59.Y.Scale,v59.Y.Offset + v81.Y );break;end end end end);spawn(v54);
+-- Set up ScreenGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Set up Frame (the main GUI)
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.Position = UDim2.new(0.5, -100, 0.5, -75)
+Frame.Size = UDim2.new(0, 200, 0, 170)
+Frame.Visible = guiVisible
+
+-- Set up TextBox (input field for time)
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
+TextBox.Size = UDim2.new(0.8, 0, 0.2, 0)
+TextBox.Text = "Enter time (seconds)"
+
+-- Set up OnOffButton
+OnOffButton.Parent = Frame
+OnOffButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+OnOffButton.Position = UDim2.new(0.1, 0, 0.4, 0)
+OnOffButton.Size = UDim2.new(0.8, 0, 0.2, 0)
+OnOffButton.Text = "Off"
+
+-- Set up CountdownLabel (for displaying countdown)
+CountdownLabel.Parent = Frame
+CountdownLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CountdownLabel.Position = UDim2.new(0.1, 0, 0.65, 0)
+CountdownLabel.Size = UDim2.new(0.8, 0, 0.2, 0)
+CountdownLabel.Text = "Time left: 0 seconds"
+
+-- Set up CreditLabel
+CreditLabel.Parent = Frame
+CreditLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CreditLabel.Position = UDim2.new(0.1, 0, 0.9, 0)
+CreditLabel.Size = UDim2.new(0.8, 0, 0.1, 0)
+CreditLabel.Text = "Cre: hoang2kvn"
+CreditLabel.TextColor3 = Color3.fromRGB(100, 100, 100)
+CreditLabel.TextScaled = true
+
+-- Set up FloatingButton (toggle button for showing/hiding GUI)
+FloatingButton.Parent = ScreenGui
+FloatingButton.BackgroundTransparency = 1
+FloatingButton.Position = UDim2.new(1, -50, 0, 10)  -- Top-right corner
+FloatingButton.Size = UDim2.new(0, 30, 0, 30)  -- Smaller size for the icon
+FloatingButton.Image = "rbxassetid://12345678" -- Replace with the asset ID of your desired icon
+
+-- Function to run the scripts and move the character
+local function runScripts()
+    -- First script
+    local args1 = {
+        [1] = "Equip",
+        [2] = {
+            ["Type"] = "Pouch",
+            ["Category"] = "Accessory"
+        }
+    }
+    game:GetService("ReplicatedStorage").Events.ItemPackageEvent:InvokeServer(unpack(args1))
+
+    -- Move character up 30 meters along the Y-axis
+    local character = game.Players.LocalPlayer.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame + Vector3.new(0, 30, 0)
+    end
+
+    -- Wait 3 seconds before running the next script
+    wait(3)
+
+    -- Second script
+    local args2 = {
+        [1] = "Equip",
+        [2] = {
+            ["Type"] = "Coconut Canister",
+            ["Category"] = "Accessory"
+        }
+    }
+    game:GetService("ReplicatedStorage").Events.ItemPackageEvent:InvokeServer(unpack(args2))
+end
+
+-- Function to toggle the countdown
+local function toggleCountdown()
+    isOn = not isOn
+    if isOn then
+        OnOffButton.Text = "Off"
+        OnOffButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        countdown = cooldownTime
+        CountdownLabel.Text = "Time left: " .. countdown .. " seconds"
+    else
+        OnOffButton.Text = "On"
+        OnOffButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    end
+end
+
+-- Function to update the time and trigger the scripts
+local function updateTime()
+    while true do
+        wait(1)
+        if isOn and countdown > 0 then
+            countdown = countdown - 1
+            CountdownLabel.Text = "Time left: " .. countdown .. " seconds"
+            if countdown == 0 then
+                runScripts()
+                countdown = cooldownTime
+            end
+        end
+    end
+end
+
+-- Function to toggle the visibility of the main GUI
+local function toggleGUI()
+    guiVisible = not guiVisible
+    Frame.Visible = guiVisible
+end
+
+-- Event listener for OnOffButton
+OnOffButton.MouseButton1Click:Connect(function()
+    toggleCountdown()
+end)
+
+-- Event listener for TextBox (when input is entered)
+TextBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local input = tonumber(TextBox.Text)
+        if input then
+            cooldownTime = input
+            if isOn then
+                countdown = cooldownTime
+            end
+        else
+            TextBox.Text = "Enter a valid time!"
+        end
+    end
+end)
+
+-- Event listener for FloatingButton (to show/hide GUI)
+FloatingButton.MouseButton1Click:Connect(function()
+    toggleGUI()
+end)
+
+-- Make the FloatingButton draggable
+local dragging = false
+local dragInput, dragStart, startPos
+
+FloatingButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = FloatingButton.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+FloatingButton.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        local delta = input.Position - dragStart
+        FloatingButton.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+-- Start the time update loop
+spawn(updateTime)
